@@ -1,46 +1,27 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Card from "./components/card";
 
 const Header = styled.header`
   display: flex;
   justify-content: center;
-  background-color: #fff;
-  padding: 22px;
+  background-color: #2a75bb;
   box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
   z-index: 2;
   position: relative;
+  color: #ffcb05;
 `;
 
-const ContainerCards = styled.div`
-  
-`;
-
-const getPokemons = async () => {
-  const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-  const data = await response.json();
-  return data;
-};
-
-function App() {
-  const [loading, setLoading] = useState(true);
-  const [pokemons, setPokemons] = useState([]);
-  useEffect(() => {
-    getPokemons().then((data) => {
-      setPokemons(data.results);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
+const App = () => {
   return (
     <div>
-      <Header>POKE APP</Header>
-      <ContainerCards>
-        {pokemons.map((pokemon, index) => (
-          <Card key={pokemon.name} id={index + 1} label={pokemon.name} />
+      <Header>
+        <h1>POKE APP</h1>
+      </Header>
+      <div>
+        {[...Array(20).keys()].map((pokemon, index) => (
+          <Card key={index} id={index + 1} />
         ))}
-      </ContainerCards>
+      </div>
     </div>
   );
 }
