@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import Card from "./components/card";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Pokemon from "./components/Pokemon";
 
 const Header = styled.header`
   display: flex;
@@ -10,20 +12,20 @@ const Header = styled.header`
   position: relative;
   color: #ffcb05;
 `;
-
 const App = () => {
   return (
     <div>
       <Header>
         <h1>POKE APP</h1>
       </Header>
-      <div>
-        {[...Array(20).keys()].map((pokemon, index) => (
-          <Card key={index} id={index + 1} />
-        ))}
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path={`/pokemon/:numero`} element={<Pokemon />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

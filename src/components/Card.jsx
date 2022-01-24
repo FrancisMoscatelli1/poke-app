@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const CardContainer = styled.div`
@@ -77,9 +78,11 @@ const Card = ({ id }) => {
       <CardContainer>
         <img alt={pokemon.name} src={pokemon.sprites.front_default} />
         <TextContainer tipo={pokemon.types[0].type.name}>
-          <p>
-            #{pokemon.id} {pokemon.name}
-          </p>
+          <Link to={`/pokemon/${pokemon.id}`} >
+            <p>
+              #{pokemon.id} {pokemon.name}
+            </p>
+          </Link>
         </TextContainer>
       </CardContainer>
     )
