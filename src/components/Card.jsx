@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const CardContainer = styled.div`
   display: inline-flex;
@@ -16,71 +16,52 @@ const CardContainer = styled.div`
 const TextContainer = styled.div`
   display: flex;
   width: 100%;
-  background-color: ${(props) =>
-    props.tipo === "grass"
-      ? "#78C850"
-      : props.tipo === "rock"
-      ? "#B8A038"
-      : props.tipo === "ice"
-      ? "#98D8D8"
-      : props.tipo === "dragon"
-      ? "#7038F8"
-      : props.tipo === "dark"
-      ? "#705848"
-      : props.tipo === "psychc"
-      ? "#F85888"
-      : props.tipo === "bug"
-      ? "#A8B820"
-      : props.tipo === "psychic"
-      ? "#F85888"
-      : props.tipo === "flying"
-      ? "#A890F0"
-      : props.tipo === "steel"
-      ? "#B8B8D0"
-      : props.tipo === "fire"
-      ? "#F08030"
-      : props.tipo === "fighting"
-      ? "#C03028"
-      : props.tipo === "ground"
-      ? "#E0C068"
-      : props.tipo === "ghost"
-      ? "#705898"
-      : props.tipo === "ghost"
-      ? "#705898"
-      : props.tipo === "poison"
-      ? "#A040A0"
-      : props.tipo === "water"
-      ? "#6890F0"
-      : props.tipo === "fairy"
-      ? "#EE99AC"
-      : props.tipo === "electric"
-      ? "#F8D030"
-      : props.tipo === "normal"
-      ? "#A8A878"
-      : "none"};
-  border-radius: 0 0 5px 5px;
-  padding-left: 5px;
+  background-color: ${(props) => {
+    if (props.tipo === 'grass') return '#78C850';
+    if (props.tipo === 'rock') return '#B8A038';
+    if (props.tipo === 'ice') return '#98D8D8';
+    if (props.tipo === 'dragon') return '#7038F8';
+    if (props.tipo === 'dark') return '#705848';
+    if (props.tipo === 'psychc') return '#F85888';
+    if (props.tipo === 'bug') return '#A8B820';
+    if (props.tipo === 'flying') return '#A890F0';
+    if (props.tipo === 'steel') return '#B8B8D0';
+    if (props.tipo === 'fire') return '#F08030';
+    if (props.tipo === 'fighting') return '#C03028';
+    if (props.tipo === 'ground') return '#E0C068';
+    if (props.tipo === 'ghost') return '#705898';
+    if (props.tipo === 'water') return '#A040A0';
+    if (props.tipo === 'fairy') return '#EE99AC';
+    if (props.tipo === 'electric') return '#F8D030';
+    if (props.tipo === 'normal') return '#A8A878';
+    return 'none';
+  }};
+border-radius: 0 0 5px 5px;
+padding-left: 5px;
 `;
 
-const Card = ({ id }) => {
+const Card = ({ ...numero }) => {
   const [pokemon, setPokemon] = useState(null);
   useEffect(() => {
-    const getPokemoinfo = async (id) => {
-      const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const getPokemoinfo = async () => {
+      const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${numero.numero}`);
       const response = await data.json();
       setPokemon(response);
     };
-    getPokemoinfo(id);
-  }, [id]);
+    getPokemoinfo(numero.numero);
+  }, [numero.numero]);
 
   return (
     pokemon && (
       <CardContainer>
         <img alt={pokemon.name} src={pokemon.sprites.front_default} />
         <TextContainer tipo={pokemon.types[0].type.name}>
-          <Link to={`/pokemon/${pokemon.id}`} >
+          <Link to={`/pokemon/${pokemon.id}`}>
             <p>
-              #{pokemon.id} {pokemon.name}
+              #
+              {pokemon.id}
+              {' '}
+              {pokemon.name}
             </p>
           </Link>
         </TextContainer>

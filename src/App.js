@@ -1,7 +1,9 @@
-import styled from "styled-components";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Pokemon from "./components/Pokemon";
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import styled from 'styled-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Pokemon from './components/Pokemon';
 
 const Header = styled.header`
   display: flex;
@@ -12,20 +14,18 @@ const Header = styled.header`
   position: relative;
   color: #ffcb05;
 `;
-const App = () => {
-  return (
-    <div>
-      <Header>
-        <h1>POKE APP</h1>
-      </Header>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path={`/pokemon/:numero`} element={<Pokemon />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
-};
+const App = () => (
+  <div>
+    <Header>
+      <h1>POKE APP</h1>
+    </Header>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pokemon/:numero" element={<Pokemon />} />
+      </Routes>
+    </BrowserRouter>
+  </div>
+);
 
 export default App;
