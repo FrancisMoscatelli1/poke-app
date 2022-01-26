@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
 const CardContainer = styled.div`
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 150px;
-  margin: 20px 5px 0 5px;
+  margin: 10px 5px 10px 5px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
@@ -39,6 +41,12 @@ const TextContainer = styled.div`
 border-radius: 0 0 5px 5px;
 padding-left: 5px;
 `;
+const CardName = styled(Link)`
+color: white;
+text-shadow: gray;
+margin: 8px 0 8px 0;
+text-decoration: none;
+`;
 
 const Card = ({ ...numero }) => {
   const [pokemon, setPokemon] = useState(null);
@@ -56,14 +64,9 @@ const Card = ({ ...numero }) => {
       <CardContainer>
         <img alt={pokemon.name} src={pokemon.sprites.front_default} />
         <TextContainer tipo={pokemon.types[0].type.name}>
-          <Link to={`/pokemon/${pokemon.id}`}>
-            <p>
-              #
-              {pokemon.id}
-              {' '}
-              {pokemon.name}
-            </p>
-          </Link>
+          <CardName to={`/pokemon/${pokemon.id}`}>
+            {`${Capitalize(pokemon.name)} N°${pokemon.id}`}
+          </CardName>
         </TextContainer>
       </CardContainer>
     )
