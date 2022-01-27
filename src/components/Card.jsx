@@ -38,21 +38,23 @@ const TextContainer = styled.div`
     if (props.tipo === 'normal') return '#A8A878';
     return 'none';
   }};
-border-radius: 0 0 5px 5px;
-padding-left: 5px;
+  border-radius: 0 0 5px 5px;
+  padding-left: 5px;
 `;
 const CardName = styled(Link)`
-color: white;
-text-shadow: gray;
-margin: 8px 0 8px 0;
-text-decoration: none;
+  color: white;
+  text-shadow: gray;
+  margin: 8px 0 8px 0;
+  text-decoration: none;
 `;
 
 const Card = ({ ...numero }) => {
   const [pokemon, setPokemon] = useState(null);
   useEffect(() => {
     const getPokemoinfo = async () => {
-      const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${numero.numero}`);
+      const data = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${numero.numero}`,
+      );
       const response = await data.json();
       setPokemon(response);
     };
