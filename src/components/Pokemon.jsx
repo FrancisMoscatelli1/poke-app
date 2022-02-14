@@ -34,18 +34,22 @@ const Pokemon = () => {
         <h1>{`#${pokemon.id} ${Capitalize(pokemon.name)}`}</h1>
         <img alt={pokemon.name} src={pokemon.sprites.front_default} />
         <p>
-          {`Habilidades: ${pokemon.abilities.map((poke) => Capitalize(poke.ability.name)).join(', ')}`}
+          {`Habilidades: ${pokemon.abilities
+            .map((poke) => Capitalize(poke.ability.name))
+            .join(', ')}`}
         </p>
         <p>{`Altura: ${pokemon.height / 10}m`}</p>
         <p>{`Peso: ${pokemon.weight / 10}Kg`}</p>
         <table>
-          {pokemon.stats.map((item) => (
-            <tr>
-              <td>{item.stat.name}</td>
-              <td>{item.base_stat}</td>
-            </tr>
-          ), [])}
-
+          {pokemon.stats.map(
+            (item) => (
+              <tr>
+                <td>{item.stat.name}</td>
+                <td>{item.base_stat}</td>
+              </tr>
+            ),
+            [],
+          )}
         </table>
         <Link to="/">Atras</Link>
       </ContenedorPokemon>
