@@ -36,7 +36,7 @@ const Home = () => {
   const [elementos, setElementos] = useState(
     Array.from({ length: 20 }, (_, i) => i + 1),
   );
-
+  console.log(elementos);
   return (
     <div>
       {elementos.map((elemento) => (
@@ -45,14 +45,25 @@ const Home = () => {
       <ContenedorNavBar>
         <ButtonNav
           type="button"
-          onClick={() => setElementos(Array.from(elementos, (el) => el - 20))}
+          onClick={() =>
+            setElementos(
+              elementos[0] === 1
+                ? elementos
+                : Array.from(elementos, (el) => el - 20),
+            )
+          }
         >
           <Back />
         </ButtonNav>
         <ButtonNav
           type="button"
-          // ultimo disponible 898
-          onClick={() => setElementos(Array.from(elementos, (el) => el + 20))}
+          onClick={() =>
+            setElementos(
+              elementos[0] === 861
+                ? elementos
+                : Array.from(elementos, (el) => (el >= 880 ? el : el + 20)),
+            )
+          }
         >
           <Next />
         </ButtonNav>
