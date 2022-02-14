@@ -24,7 +24,7 @@ const TextContainer = styled.div`
     if (props.tipo === 'ice') return '#98D8D8';
     if (props.tipo === 'dragon') return '#7038F8';
     if (props.tipo === 'dark') return '#705848';
-    if (props.tipo === 'psychc') return '#F85888';
+    if (props.tipo === 'psychic') return '#F85888';
     if (props.tipo === 'bug') return '#A8B820';
     if (props.tipo === 'flying') return '#A890F0';
     if (props.tipo === 'steel') return '#B8B8D0';
@@ -32,11 +32,12 @@ const TextContainer = styled.div`
     if (props.tipo === 'fighting') return '#C03028';
     if (props.tipo === 'ground') return '#E0C068';
     if (props.tipo === 'ghost') return '#705898';
-    if (props.tipo === 'water') return '#A040A0';
+    if (props.tipo === 'poison') return '#A040A0';
+    if (props.tipo === 'water') return '#6890F0';
     if (props.tipo === 'fairy') return '#EE99AC';
     if (props.tipo === 'electric') return '#F8D030';
     if (props.tipo === 'normal') return '#A8A878';
-    return 'none';
+    return 'gray';
   }};
   border-radius: 0 0 5px 5px;
   padding-left: 5px;
