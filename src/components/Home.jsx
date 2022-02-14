@@ -36,7 +36,6 @@ const Home = () => {
   const [elementos, setElementos] = useState(
     Array.from({ length: 20 }, (_, i) => i + 1),
   );
-  console.log(elementos);
   return (
     <div>
       {elementos.map((elemento) => (
