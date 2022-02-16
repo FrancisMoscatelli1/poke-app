@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { MdClear } from 'react-icons/md';
 
 const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -17,6 +18,26 @@ const ContenedorPokemon = styled.div`
   box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
 `;
 
+const Atras = styled(MdClear)`
+  height: 40px;
+  width: auto;
+  color: #ffcb05;
+`;
+
+const ButtonBack = styled(Link)`
+  float: right;
+  border: 3px solid #ffcb05;
+  border-radius: 20px;
+  box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
+  background-color: #2a75bb;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 5px;
+`;
+
 const Pokemon = () => {
   const { numero } = useParams();
   const [pokemon, setPokemon] = useState(null);
@@ -30,29 +51,53 @@ const Pokemon = () => {
   }, [numero]);
   return (
     pokemon && (
-      <ContenedorPokemon>
-        <h1>{`#${pokemon.id} ${Capitalize(pokemon.name)}`}</h1>
-        <img alt={pokemon.name} src={pokemon.sprites.front_default} />
-        <p>
-          {`Habilidades: ${pokemon.abilities
-            .map((poke) => Capitalize(poke.ability.name))
-            .join(', ')}`}
-        </p>
-        <p>{`Altura: ${pokemon.height / 10}m`}</p>
-        <p>{`Peso: ${pokemon.weight / 10}Kg`}</p>
-        <table>
-          {pokemon.stats.map(
-            (item) => (
+      <div>
+        <ContenedorPokemon>
+          <h1>{`#${pokemon.id} ${Capitalize(pokemon.name)}`}</h1>
+          <img alt={pokemon.name} src={pokemon.sprites.front_default} />
+          <p>{`Type: ${pokemon.types
+            .map((poke) => Capitalize(poke.type.name))
+            .join(', ')}`}</p>
+          <p>
+            {`Habilidades: ${pokemon.abilities
+              .map((poke) => Capitalize(poke.ability.name))
+              .join(', ')}`}
+          </p>
+          <p>{`Height: ${pokemon.height / 10}m`}</p>
+          <p>{`Weight: ${pokemon.weight / 10}Kg`}</p>
+          <table>
+            <tbody>
               <tr>
-                <td>{item.stat.name}</td>
-                <td>{item.base_stat}</td>
+                <td>HP</td>
+                <td>{pokemon.stats[0].base_stat}</td>
               </tr>
-            ),
-            [],
-          )}
-        </table>
-        <Link to="/">Atras</Link>
-      </ContenedorPokemon>
+              <tr>
+                <td>Attack</td>
+                <td>{pokemon.stats[1].base_stat}</td>
+              </tr>
+              <tr>
+                <td>Defense</td>
+                <td>{pokemon.stats[2].base_stat}</td>
+              </tr>
+              <tr>
+                <td>Special attack</td>
+                <td>{pokemon.stats[3].base_stat}</td>
+              </tr>
+              <tr>
+                <td>Special defense</td>
+                <td>{pokemon.stats[4].base_stat}</td>
+              </tr>
+              <tr>
+                <td>Speed</td>
+                <td>{pokemon.stats[5].base_stat}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ContenedorPokemon>
+        <ButtonBack to="/">
+          <Atras />
+        </ButtonBack>
+      </div>
     )
   );
 };
