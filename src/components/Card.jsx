@@ -68,7 +68,9 @@ const Card = ({ ...numero }) => {
         <img alt={pokemon.name} src={pokemon.sprites.front_default} />
         <TextContainer tipo={pokemon.types[0].type.name}>
           <CardName to={`/pokemon/${pokemon.id}`}>
-            {`${Capitalize(pokemon.name)} N°${pokemon.id}`}
+            {`#${pokemon.id}`}
+            <br />
+            {`${Capitalize(pokemon.name)}`}
           </CardName>
         </TextContainer>
       </CardContainer>
