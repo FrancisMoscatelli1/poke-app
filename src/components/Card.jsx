@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+// eslint-disable-next-line no-unused-vars
+import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 
 const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -49,6 +51,16 @@ const CardName = styled(Link)`
   text-decoration: none;
 `;
 
+const Favorite = styled(MdFavoriteBorder)`
+  height: 20px;
+  width: auto;
+  margin: 5px;
+  /* position: absolute; */
+  right: 1px;
+
+  z-index: 2;
+`;
+
 const Card = ({ ...numero }) => {
   const [pokemon, setPokemon] = useState(null);
   useEffect(() => {
@@ -66,9 +78,10 @@ const Card = ({ ...numero }) => {
     pokemon && (
       <CardContainer>
         <img alt={pokemon.name} src={pokemon.sprites.front_default} />
+        <Favorite />
         <TextContainer tipo={pokemon.types[0].type.name}>
           <CardName to={`/pokemon/${pokemon.id}`}>
-            {`#${pokemon.id}`}
+            {`#${pokemon.id} `}
             <br />
             {`${Capitalize(pokemon.name)}`}
           </CardName>
