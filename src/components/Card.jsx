@@ -55,10 +55,13 @@ const Favorite = styled(MdFavoriteBorder)`
   height: 20px;
   width: auto;
   margin: 5px;
-  /* position: absolute; */
-  right: 1px;
-
+  position: absolute;
+  color: #ffcb05;
   z-index: 2;
+  &:hover {
+    cursor: pointer;
+    color: #e0b400;
+  }
 `;
 
 const Card = ({ ...numero }) => {
@@ -77,8 +80,10 @@ const Card = ({ ...numero }) => {
   return (
     pokemon && (
       <CardContainer>
-        <img alt={pokemon.name} src={pokemon.sprites.front_default} />
-        <Favorite />
+        <div>
+          <img alt={pokemon.name} src={pokemon.sprites.front_default} />
+          <Favorite />
+        </div>
         <TextContainer tipo={pokemon.types[0].type.name}>
           <CardName to={`/pokemon/${pokemon.id}`}>
             {`#${pokemon.id} `}
