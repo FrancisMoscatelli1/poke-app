@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
+import { addFavorite } from '../features/favorite/favoriteSlice';
+import store from '../app/store';
 
 const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
-const CardContainer = styled.div`
+const Container = styled.div`
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -17,7 +20,7 @@ const CardContainer = styled.div`
   box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
 `;
 
-const TextContainer = styled.div`
+const Text = styled(Link)`
   display: flex;
   width: 100%;
   background-color: ${(props) => {
@@ -42,12 +45,9 @@ const TextContainer = styled.div`
     return 'gray';
   }};
   border-radius: 0 0 5px 5px;
-  padding-left: 5px;
-`;
-const CardName = styled(Link)`
   color: white;
-  text-shadow: gray;
-  margin: 8px 0 8px 0;
+  padding: 10px;
+  margin: 0;
   text-decoration: none;
 `;
 
@@ -66,6 +66,7 @@ const Favorite = styled(MdFavoriteBorder)`
 
 const Card = ({ ...numero }) => {
   const [pokemon, setPokemon] = useState(null);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getPokemoinfo = async () => {
       const data = await fetch(
@@ -79,19 +80,28 @@ const Card = ({ ...numero }) => {
 
   return (
     pokemon && (
-      <CardContainer>
+      <Container>
         <div>
           <img alt={pokemon.name} src={pokemon.sprites.front_default} />
-          <Favorite />
+          <Favorite
+            onClick={() => {
+              dispatch(
+                addFavorite({
+                  number: pokemon.id,
+                  name: pokemon.name,
+                  image: pokemon.sprites.front_default,
+                }),
+              );
+              console.log(store.getState().favorite);
+            }}
+          />
         </div>
-        <TextContainer tipo={pokemon.types[0].type.name}>
-          <CardName to={`/pokemon/${pokemon.id}`}>
-            {`#${pokemon.id} `}
-            <br />
-            {`${Capitalize(pokemon.name)}`}
-          </CardName>
-        </TextContainer>
-      </CardContainer>
+        <Text tipo={pokemon.types[0].type.name} to={`/pokemon/${pokemon.id}`}>
+          {`#${pokemon.id} `}
+          <br />
+          {`${Capitalize(pokemon.name)}`}
+        </Text>
+      </Container>
     )
   );
 };
