@@ -5,7 +5,6 @@ import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import { addFavorite } from '../features/favorite/favoriteSlice';
-import store from '../app/store';
 
 const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -84,16 +83,15 @@ const Card = ({ ...numero }) => {
         <div>
           <img alt={pokemon.name} src={pokemon.sprites.front_default} />
           <Favorite
-            onClick={() => {
+            onClick={() =>
               dispatch(
                 addFavorite({
                   number: pokemon.id,
                   name: pokemon.name,
                   image: pokemon.sprites.front_default,
                 }),
-              );
-              console.log(store.getState().favorite);
-            }}
+              )
+            }
           />
         </div>
         <Text tipo={pokemon.types[0].type.name} to={`/pokemon/${pokemon.id}`}>
