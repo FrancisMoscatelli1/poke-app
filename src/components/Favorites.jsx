@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
@@ -11,13 +11,19 @@ const Container = styled.div`
   margin: 5px;
 `;
 
-const Icon = styled(MdFavorite)`
+const IconFilled = styled(MdFavorite)`
+  height: 40px;
+  width: auto;
+`;
+
+const IconEmpty = styled(MdFavoriteBorder)`
   height: 40px;
   width: auto;
 `;
 
 const Elements = styled.ul`
   position: absolute;
+  top: 25px;
   right: inherit;
   background-color: #fff;
   box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
@@ -35,19 +41,40 @@ const Element = styled.li`
   border-bottom: 1px solid #aaa;
 `;
 
+const Image = styled.img`
+  height: 70px;
+  width: auto;
+`;
+
 const Favorites = () => {
+  const [visible, serVisible] = useState(false);
   const favorites = useSelector(selectFavorites);
   return (
     <Container>
-      <Icon />
-      <Elements>
-        {favorites.map((data) => (
-          <Element key={data.id}>
-            <img alt={data.name} src={data.image} />
-            <p>{data.name}</p>
-          </Element>
-        ))}
-      </Elements>
+      {favorites.length === 0 ? (
+        <IconEmpty onClick={() => serVisible(!visible)} />
+      ) : (
+        <IconFilled onClick={() => serVisible(!visible)} />
+      )}
+
+      {visible ? (
+        <Elements>
+          {favorites.length === 0 ? (
+            <Elements>
+              <Element>
+                <p>Empty</p>
+              </Element>
+            </Elements>
+          ) : (
+            favorites.map((data) => (
+              <Element key={data.number}>
+                <Image alt={data.name} src={data.image} />
+                <p>{data.name}</p>
+              </Element>
+            ))
+          )}
+        </Elements>
+      ) : null}
     </Container>
   );
 };
