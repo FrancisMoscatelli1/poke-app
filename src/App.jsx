@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
-import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import Home from './components/Home';
 import Pokemon from './components/Pokemon';
+import Favorites from './components/Favorites';
 
 const Header = styled.header`
   display: flex;
@@ -15,13 +14,6 @@ const Header = styled.header`
   box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
 `;
 
-const Favorites = styled(MdFavorite)`
-  height: 40px;
-  width: auto;
-  position: absolute;
-  right: 0;
-  margin: 5px;
-`;
 const App = () => (
   <div>
     <Header>
