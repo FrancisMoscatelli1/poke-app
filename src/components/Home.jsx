@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
@@ -7,10 +6,11 @@ import Card from './Card';
 const ContenedorNavBar = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 5px 5px 5px;
-  bottom: 0;
+  margin: 5px;
 `;
 const ButtonNav = styled.button`
+  display: flex;
+  align-items: center;
   border-radius: 20px;
   border-width: 3px;
   box-shadow: 1px 2px 5px rgb(0, 0, 0, 0.3);
@@ -33,41 +33,46 @@ const Next = styled(MdNavigateNext)`
 `;
 
 const Home = () => {
-  const [elementos, setElementos] = useState(
-    Array.from({ length: 20 }, (_, i) => i + 1),
-  );
+  const [elementos, setElementos] = useState(null);
+  const [urlFetch, setUrlFetch] = useState('https://pokeapi.co/api/v2/pokemon');
+  useEffect(() => {
+    const getPokemoinfo = async () => {
+      const data = await fetch(urlFetch);
+      const response = await data.json();
+      setElementos(response);
+    };
+    getPokemoinfo();
+  }, [urlFetch]);
+
   return (
-    <div>
-      {elementos.map((elemento) => (
-        <Card key={elemento} numero={elemento} />
-      ))}
-      <ContenedorNavBar>
-        <ButtonNav
-          type="button"
-          onClick={() =>
-            setElementos(
-              elementos[0] === 1
-                ? elementos
-                : Array.from(elementos, (el) => el - 20),
-            )
-          }
-        >
-          <Back />
-        </ButtonNav>
-        <ButtonNav
-          type="button"
-          onClick={() =>
-            setElementos(
-              elementos[0] === 861
-                ? elementos
-                : Array.from(elementos, (el) => (el >= 880 ? el : el + 20)),
-            )
-          }
-        >
-          <Next />
-        </ButtonNav>
-      </ContenedorNavBar>
-    </div>
+    elementos && (
+      <div>
+        <ContenedorNavBar>
+          <ButtonNav
+            type="button"
+            onClick={() =>
+              setUrlFetch(elementos.previous ? elementos.previous : urlFetch)
+            }
+          >
+            <Back />
+          </ButtonNav>
+          <ButtonNav
+            type="button"
+            onClick={() =>
+              setUrlFetch(elementos.next ? elementos.next : urlFetch)
+            }
+          >
+            <Next />
+          </ButtonNav>
+        </ContenedorNavBar>
+        {elementos.results.map((elemento) => (
+          <Card
+            key={elemento.name}
+            numero={Number(elemento.url.split('/')[6])}
+          />
+        ))}
+      </div>
+    )
   );
 };
 export default Home;
