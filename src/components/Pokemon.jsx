@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { MdClear } from 'react-icons/md';
-
-const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+import { Capitalize } from '../features/utils';
 
 const ContenedorPokemon = styled.div`
   display: flex;

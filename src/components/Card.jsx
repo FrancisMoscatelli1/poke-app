@@ -5,8 +5,7 @@ import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import { addFavorite } from '../features/favorite/favoriteSlice';
-
-const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+import { Capitalize, HyphenToSpace } from '../features/utils';
 
 const Container = styled.div`
   display: inline-flex;
@@ -97,7 +96,7 @@ const Card = ({ ...numero }) => {
         <Text tipo={pokemon.types[0].type.name} to={`/pokemon/${pokemon.id}`}>
           {`#${pokemon.id} `}
           <br />
-          {`${Capitalize(pokemon.name)}`}
+          {`${HyphenToSpace(Capitalize(pokemon.name))}`}
         </Text>
       </Container>
     )
