@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { MdClear } from 'react-icons/md';
-import { Capitalize } from '../features/utils';
+import { Capitalize, HyphenToSpace } from '../features/utils';
 
 const ContenedorPokemon = styled.div`
   display: flex;
@@ -52,14 +52,14 @@ const Pokemon = () => {
     pokemon && (
       <div>
         <ContenedorPokemon>
-          <h1>{`#${pokemon.id} ${Capitalize(pokemon.name)}`}</h1>
+          <h1>{`#${pokemon.id} ${Capitalize(HyphenToSpace(pokemon.name))}`}</h1>
           <img alt={pokemon.name} src={pokemon.sprites.front_default} />
           <p>{`Type: ${pokemon.types
             .map((poke) => Capitalize(poke.type.name))
             .join(', ')}`}</p>
           <p>
             {`Habilidades: ${pokemon.abilities
-              .map((poke) => Capitalize(poke.ability.name))
+              .map((poke) => Capitalize(HyphenToSpace(poke.ability.name)))
               .join(', ')}`}
           </p>
           <p>{`Height: ${pokemon.height / 10}m`}</p>
