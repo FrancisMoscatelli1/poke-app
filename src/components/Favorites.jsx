@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
-import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
-import { selectFavorites } from '../features/favorite/favoriteSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { MdFavoriteBorder, MdFavorite, MdClose } from 'react-icons/md';
+import {
+  selectFavorites,
+  deleteFavorite,
+} from '../features/favorite/favoriteSlice';
+import { NormalizeFistWord } from '../features/utils';
 
 const Container = styled.div`
   position: absolute;
@@ -39,6 +42,7 @@ const Element = styled.li`
   list-style: none;
   padding: 15px 10px;
   border-bottom: 1px solid #aaa;
+  color: #000;
 `;
 
 const Image = styled.img`
@@ -46,9 +50,21 @@ const Image = styled.img`
   width: auto;
 `;
 
+const Close = styled(MdClose)`
+  height: 20px;
+  width: auto;
+  color: #ff3939;
+  margin: 10px;
+  &:hover {
+    cursor: pointer;
+    color: #ff0000;
+  }
+`;
+
 const Favorites = () => {
   const [visible, setVisible] = useState(false);
   const favorites = useSelector(selectFavorites);
+  const dispatch = useDispatch();
   return (
     <Container>
       {favorites.length === 0 ? (
@@ -69,7 +85,8 @@ const Favorites = () => {
             favorites.map((data) => (
               <Element key={data.number}>
                 <Image alt={data.name} src={data.image} />
-                <p>{data.name}</p>
+                <p>{NormalizeFistWord(data.name)}</p>
+                <Close onClick={() => dispatch(deleteFavorite(data.number))} />
               </Element>
             ))
           )}
