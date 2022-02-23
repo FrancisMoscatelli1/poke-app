@@ -47,14 +47,14 @@ const Image = styled.img`
 `;
 
 const Favorites = () => {
-  const [visible, serVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
   const favorites = useSelector(selectFavorites);
   return (
     <Container>
       {favorites.length === 0 ? (
-        <IconEmpty onClick={() => serVisible(!visible)} />
+        <IconEmpty onClick={() => setVisible(!visible)} />
       ) : (
-        <IconFilled onClick={() => serVisible(!visible)} />
+        <IconFilled onClick={() => setVisible(!visible)} />
       )}
 
       {visible ? (
