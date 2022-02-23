@@ -3,11 +3,18 @@ import styled from 'styled-components';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import Card from './Card';
 
-const ContenedorNavBar = styled.div`
+const NavBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 5px;
 `;
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
 const ButtonNav = styled.button`
   display: flex;
   align-items: center;
@@ -47,7 +54,7 @@ const Home = () => {
   return (
     elementos && (
       <div>
-        <ContenedorNavBar>
+        <NavBarContainer>
           <ButtonNav
             type="button"
             onClick={() =>
@@ -64,13 +71,15 @@ const Home = () => {
           >
             <Next />
           </ButtonNav>
-        </ContenedorNavBar>
-        {elementos.results.map((elemento) => (
-          <Card
-            key={elemento.name}
-            numero={Number(elemento.url.split('/')[6])}
-          />
-        ))}
+        </NavBarContainer>
+        <CardContainer>
+          {elementos.results.map((elemento) => (
+            <Card
+              key={elemento.name}
+              numero={Number(elemento.url.split('/')[6])}
+            />
+          ))}
+        </CardContainer>
       </div>
     )
   );
