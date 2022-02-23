@@ -33,6 +33,11 @@ const Elements = styled.ul`
   border-radius: 5px;
   padding: 0px 10px 0px 10px;
   z-index: 3;
+  max-height: 300px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Element = styled.li`
