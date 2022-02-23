@@ -41,7 +41,7 @@ const Element = styled.li`
   justify-content: center;
   list-style: none;
   padding: 15px 10px;
-  border-bottom: 1px solid #aaa;
+  /* border-bottom: 1px solid #aaa; */
   color: #000;
 `;
 
@@ -76,14 +76,19 @@ const Favorites = () => {
       {visible ? (
         <Elements>
           {favorites.length === 0 ? (
-            <Elements>
-              <Element>
-                <p>Empty</p>
-              </Element>
-            </Elements>
+            <Element>
+              <p>Empty</p>
+            </Element>
           ) : (
-            favorites.map((data) => (
-              <Element key={data.number}>
+            favorites.map((data, index, arr) => (
+              <Element
+                key={data.number}
+                style={
+                  index === arr.length - 1
+                    ? { borderBottom: 'none' }
+                    : { borderBottom: '1px solid #aaa' }
+                }
+              >
                 <Image alt={data.name} src={data.image} />
                 <p>{NormalizeFistWord(data.name)}</p>
                 <Close onClick={() => dispatch(deleteFavorite(data.number))} />
