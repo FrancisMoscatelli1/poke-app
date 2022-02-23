@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-// eslint-disable-next-line no-unused-vars
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
-import { addFavorite } from '../features/favorite/favoriteSlice';
+import {
+  addFavorite,
+  selectFavorites,
+} from '../features/favorite/favoriteSlice';
 import { Capitalize, HyphenToSpace } from '../features/utils';
 
 const Container = styled.div`
@@ -49,7 +51,20 @@ const Text = styled(Link)`
   text-decoration: none;
 `;
 
-const Favorite = styled(MdFavoriteBorder)`
+const FavoriteUnfilled = styled(MdFavoriteBorder)`
+  height: 20px;
+  width: auto;
+  margin: 5px;
+  position: absolute;
+  color: #ffcb05;
+  z-index: 2;
+  &:hover {
+    cursor: pointer;
+    color: #e0b400;
+  }
+`;
+
+const FavoriteFilled = styled(MdFavorite)`
   height: 20px;
   width: auto;
   margin: 5px;
@@ -65,6 +80,16 @@ const Favorite = styled(MdFavoriteBorder)`
 const Card = ({ ...numero }) => {
   const [pokemon, setPokemon] = useState(null);
   const dispatch = useDispatch();
+  const dispatchPokemon = () => {
+    dispatch(
+      addFavorite({
+        number: pokemon.id,
+        name: pokemon.name,
+        image: pokemon.sprites.front_default,
+      }),
+    );
+  };
+  const favorite = useSelector(selectFavorites);
   useEffect(() => {
     const getPokemoinfo = async () => {
       const data = await fetch(
@@ -75,28 +100,21 @@ const Card = ({ ...numero }) => {
     };
     getPokemoinfo(numero.numero);
   }, [numero.numero]);
-
   return (
     pokemon && (
       <Container>
         <div>
           <img alt={pokemon.name} src={pokemon.sprites.front_default} />
-          <Favorite
-            onClick={() =>
-              dispatch(
-                addFavorite({
-                  number: pokemon.id,
-                  name: pokemon.name,
-                  image: pokemon.sprites.front_default,
-                }),
-              )
-            }
-          />
+          {favorite.some((x) => x.number === pokemon.id) ? (
+            <FavoriteFilled onClick={() => dispatchPokemon()} />
+          ) : (
+            <FavoriteUnfilled onClick={() => dispatchPokemon()} />
+          )}
         </div>
         <Text tipo={pokemon.types[0].type.name} to={`/pokemon/${pokemon.id}`}>
-          {`#${pokemon.id} `}
+          {`#${pokemon.id}`}
           <br />
-          {`${HyphenToSpace(Capitalize(pokemon.name))}`}
+          {HyphenToSpace(Capitalize(pokemon.name))}
         </Text>
       </Container>
     )
