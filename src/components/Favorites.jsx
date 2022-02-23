@@ -41,7 +41,6 @@ const Element = styled.li`
   justify-content: center;
   list-style: none;
   padding: 15px 10px;
-  /* border-bottom: 1px solid #aaa; */
   color: #000;
 `;
 
